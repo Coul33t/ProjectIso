@@ -5,43 +5,66 @@
 #ifndef PROJECTISO_MAP_H
 #define PROJECTISO_MAP_H
 
+#include <iostream>
 #include <string>
 #include <vector>
 
 #include "raylib.h"
 
 #include "types.h"
-
+#include "tools.h"
 
 struct Tile {
-    Texture2D texture;
+    std::string texture_name;
     mVec3<int> pos; // x, y, z
+    bool fill_under;
 
     Tile() {
-
-    }
-    Tile(std::string path_to_texture) {
-        texture = LoadTexture(path_to_texture.c_str());
+        fill_under = true;
     }
 
-    Tile(std::string path_to_texture, int x, int y, int z=1) {
-        texture = LoadTexture(path_to_texture.c_str());
+    Tile(std::string name) {
+        texture_name = name;
+        pos.x = 0;
+        pos.y = 0;
+        pos.z = 0;
+        fill_under = true;
+    }
+
+    Tile(std::string name, int x, int y, int z=0) {
+        texture_name = name;
         pos.x = x;
         pos.y = y;
         pos.z = z;
+        fill_under = true;
     }
 
-    void load_from_image(std::string path_to_texture) {
-        texture = LoadTexture(path_to_texture.c_str());
+    Vector2 get_pos() const {
+        return Vector2{static_cast<float>(pos.x), static_cast<float>(pos.y)};
+    }
+
+    mVec2<int> get_pos_as_mvec() const {
+        return mVec2<int>{pos.x, pos.y};
+    }
+
+    Vector2 get_pos_size(Texture2D texture) const {
+        return Vector2{static_cast<float>(pos.x * texture.width), static_cast<float>(pos.y * texture.height)};
     }
 };
 
 class Map {
+public:
     Map();
     ~Map();
 
-    void make_test_map();
+    Tile get_tile_at(uint x, uint y);
 
+    void load_from_file(std::string file_path);
+
+    void make_test_map();
+    bool adjacent_diff_is_bigger_than(Tile& tile, int max_level);
+
+    mVec2<uint> size;
     std::vector<Tile> tiles;
 };
 

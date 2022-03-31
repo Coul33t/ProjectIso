@@ -18,10 +18,6 @@ struct mVec2
         struct { T x, y;};
         struct { T w, h;};
     };
-
-    Vector2 asV2() {
-        return Vector2(x, y);
-    }
 };
 
 template<typename T>
@@ -31,10 +27,6 @@ struct mVec3
         struct { T x, y, z;};
         struct { T w, h, d;};
     };
-
-    Vector3 asV3() {
-        return Vector3(x, y, z);
-    }
 };
 
 #endif //PROJECTISO_TYPES_H

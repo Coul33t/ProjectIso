@@ -8,6 +8,7 @@
 #include "raylib.h"
 
 #include "map.h"
+#include "renderer.h"
 
 class Engine {
 public:
@@ -18,6 +19,8 @@ public:
     void run();
 
     float scale_factor;
+    Renderer renderer;
+    Map map;
 };
 
 #endif //PROJECTISO_ENGINE_H
