@@ -3,11 +3,10 @@
 //
 
 #include <iostream>
-#include "raylib.h"
 
 #include "include/engine.h"
 
-int main() {
+int main(int argv, char** args) {
     Engine engine;
     engine.init();
     engine.run();

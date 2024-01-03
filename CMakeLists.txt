@@ -1,16 +1,22 @@
 cmake_minimum_required(VERSION 3.14)
 project(projectiso)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD 17)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++17")
+# SDL2
+IF (WIN32)
+        SET(SDL2_DIR "${PROJECT_SOURCE_DIR}/extlib/SDL/SDL2/cmake") 
+        SET(SDL2_Image_DIR "${PROJECT_SOURCE_DIR}/extlib/SDL/SDL2_image/cmake") 
+        FIND_PACKAGE(SDL2 REQUIRED) 
+        FIND_PACKAGE(SDL2_Image REQUIRED)
+ENDIF (WIN32)
 
-# raylib is there
-INCLUDE_DIRECTORIES(/usr/local/include)
-LINK_DIRECTORIES(/usr/local/lib)
+# TODO: Linux
 
+
+# Project code
 INCLUDE_DIRECTORIES(
         ${PROJECT_SOURCE_DIR}/include
         ${PROJECT_SOURCE_DIR}/src
@@ -18,13 +24,12 @@ INCLUDE_DIRECTORIES(
         ${CMAKE_SOURCE_DIR}/extlib/random
 )
 
-file(GLOB all_SRCS
+FILE(GLOB all_SRCS
         "${PROJECT_SOURCE_DIR}/include/*.h"
         "${PROJECT_SOURCE_DIR}/include/*.hpp"
         "${PROJECT_SOURCE_DIR}/src/*.cpp"
         "${PROJECT_SOURCE_DIR}/src/*.c"
-        )
+)
 
-add_executable(projectiso main.cpp ${all_SRCS} include/map.h src/map.cpp main.cpp include/types.h include/tools.h src/tools.cpp include/renderer.h src/renderer.cpp)
-
-TARGET_LINK_LIBRARIES(projectiso libraylib.so)
+ADD_EXECUTABle(projectiso main.cpp ${all_SRCS})
+TARGET_LINK_LIBRARIES(projectiso SDL2::SDL2main SDL2::SDL2 SDL2_image::SDL2_image)

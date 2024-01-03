@@ -15,7 +15,7 @@ Renderer::~Renderer() {
 }
 
 void Renderer::init() {
-    InitWindow(size.w, size.h, "Project ISO - Please find a name");
+    //InitWindow(size.w, size.h, "Project ISO - Please find a name");
 }
 
 void Renderer::load_textures() {
@@ -23,16 +23,16 @@ void Renderer::load_textures() {
     tileset_info.tile_size.h = 32;
     tileset_info.offsets.x = 32 / 2;
     tileset_info.offsets.y = 32 / 2;
-    textures["grassfull"] = LoadTexture("../res/3232iso/grassfull.png");
+    /*textures["grassfull"] = LoadTexture("../res/3232iso/grassfull.png");
     textures["dirtgrassfull"] = LoadTexture("../res/3232iso/dirtgrassfull.png");
     textures["dirtfull"] = LoadTexture("../res/3232iso/dirtfull.png");
     textures["stonefull"] = LoadTexture("../res/3232iso/stonefull.png");
-    textures["waterfull"] = LoadTexture("../res/3232iso/waterfull.png");
+    textures["waterfull"] = LoadTexture("../res/3232iso/waterfull.png");*/
 
     scale_factor = 2.0;
 }
 
-Texture2D& Renderer::get_texture_from_name(Tile& tile) {
+/*Texture2D& Renderer::get_texture_from_name(Tile& tile) {
     if (textures.find(tile.texture_name) != textures.end())
         return textures[tile.texture_name];
 
@@ -70,9 +70,9 @@ void Renderer::draw_map(Map& map) {
 
 
 
-        /*DrawTexture(get_texture_from_name(tile),
+        DrawTexture(get_texture_from_name(tile),
                     offset.x - get_texture_from_name(tile).width/2,
                     offset.y - get_texture_from_name(tile).height/2,
-                    WHITE);*/
+                    WHITE);
     }
-}
+}*/

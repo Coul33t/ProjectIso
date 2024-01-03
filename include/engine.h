@@ -5,10 +5,11 @@
 #ifndef PROJECTISO_ENGINE_H
 #define PROJECTISO_ENGINE_H
 
-#include "raylib.h"
+#include <SDL.h>
 
 #include "map.h"
 #include "renderer.h"
+#include "ksdl.h"
 
 class Engine {
 public:

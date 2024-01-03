@@ -10,8 +10,6 @@
 #include <map>
 #include <iostream>
 
-#include "raylib.h"
-
 #include "map.h"
 
 struct TileSetInfo {
@@ -44,13 +42,13 @@ public:
 
     void init();
     void load_textures();
-    Texture2D& get_texture_from_name(Tile& tile);
+    //Texture2D& get_texture_from_name(Tile& tile);
 
     void draw_map(Map& map);
 
     mVec2<uint> size;
     float scale_factor;
-    std::map<std::string, Texture2D> textures;
+    //std::map<std::string, Texture2D> textures;
     TileSetInfo tileset_info;
 };
 

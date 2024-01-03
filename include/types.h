@@ -7,8 +7,6 @@
 
 #include <cstdint>
 
-#include "raylib.h"
-
 typedef unsigned int uint;
 
 template<typename T>

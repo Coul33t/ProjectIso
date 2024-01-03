@@ -9,8 +9,6 @@
 #include <string>
 #include <vector>
 
-#include "raylib.h"
-
 #include "types.h"
 #include "tools.h"
 
@@ -39,17 +37,17 @@ struct Tile {
         fill_under = true;
     }
 
-    Vector2 get_pos() const {
+    /*Vector2 get_pos() const {
         return Vector2{static_cast<float>(pos.x), static_cast<float>(pos.y)};
-    }
+    }*/
 
     mVec2<int> get_pos_as_mvec() const {
         return mVec2<int>{pos.x, pos.y};
     }
 
-    Vector2 get_pos_size(Texture2D texture) const {
+    /*Vector2 get_pos_size(Texture2D texture) const {
         return Vector2{static_cast<float>(pos.x * texture.width), static_cast<float>(pos.y * texture.height)};
-    }
+    }*/
 };
 
 class Map {

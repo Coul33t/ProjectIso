@@ -22,14 +22,22 @@ void Engine::run() {
     map.make_test_map();
     renderer.load_textures();
 
-    while (!WindowShouldClose()) {
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
+    KSDL ksdl;
 
-        renderer.draw_map(map);
-
-        DrawText("this IS a texture!", 360, 370, 10, GRAY);
-
-        EndDrawing();
+    if (!ksdl.init(640, 480, "Test name")) {
+        return;
     }
+
+    SDL_Event e;
+    bool quit = false; 
+
+    while (quit == false) { 
+        while (SDL_PollEvent( &e )) { 
+            if (e.type == SDL_QUIT) {
+                quit = true; 
+            } 
+        }
+    }
+
+    ksdl.destroy();
 }
