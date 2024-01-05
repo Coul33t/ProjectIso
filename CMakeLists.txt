@@ -5,6 +5,7 @@ set(CMAKE_C_STANDARD 17)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
+
 # SDL2
 IF (WIN32)
         SET(SDL2_DIR "${PROJECT_SOURCE_DIR}/extlib/SDL/SDL2/cmake") 
@@ -31,5 +32,6 @@ FILE(GLOB all_SRCS
         "${PROJECT_SOURCE_DIR}/src/*.c"
 )
 
-ADD_EXECUTABle(projectiso main.cpp ${all_SRCS})
+
+ADD_EXECUTABLE(projectiso main.cpp ${all_SRCS})
 TARGET_LINK_LIBRARIES(projectiso SDL2::SDL2main SDL2::SDL2 SDL2_image::SDL2_image)

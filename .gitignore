@@ -36,3 +36,4 @@ cmake-build-debug/
 .vscode
 extlib/*
 build/*
+res/*

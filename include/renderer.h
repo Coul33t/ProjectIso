@@ -10,11 +10,19 @@
 #include <map>
 #include <iostream>
 
+#include <SDL.h>
+#include <SDL_image.h>
+
 #include "map.h"
+#include "ksdl.h"
+#include "tools.h"
+#include "constants.h"
 
 struct TileSetInfo {
     mVec2<int> tile_size;
     mVec2<int> offsets;
+    mVec2<int> size;
+    mVec2<size_t> nb_tiles;
 
     TileSetInfo() {
         tile_size.w = -1;
@@ -41,15 +49,21 @@ public:
     ~Renderer();
 
     void init();
-    void load_textures();
-    //Texture2D& get_texture_from_name(Tile& tile);
+    void loadTileset();
+    SDL_Rect getSurfaceCoordFromName(Tile& tile);
 
     void draw_map(Map& map);
 
+    SDL_Surface* loadImage(std::string path);
+
+    void render(Map& map);
+
     mVec2<uint> size;
     float scale_factor;
-    //std::map<std::string, Texture2D> textures;
+    std::map<std::string, SDL_Rect> surfaces;
     TileSetInfo tileset_info;
+    KSDL ksdl;
+    SDL_Surface* tileset;
 };
 
 

@@ -17,27 +17,27 @@ void Engine::init() {
 }
 
 void Engine::run() {
+    std::cout << "Running" << std::endl;
     scale_factor = 0.25;
 
+    std::cout << "Make test map" << std::endl;
     map.make_test_map();
-    renderer.load_textures();
-
-    KSDL ksdl;
-
-    if (!ksdl.init(640, 480, "Test name")) {
-        return;
-    }
+    std::cout << "Load tileset" << std::endl;
+    renderer.loadTileset();
 
     SDL_Event e;
     bool quit = false; 
 
+    std::cout << "Before while loop" << std::endl;
+
     while (quit == false) { 
-        while (SDL_PollEvent( &e )) { 
+        while (SDL_PollEvent(&e)) { 
             if (e.type == SDL_QUIT) {
                 quit = true; 
             } 
         }
-    }
 
-    ksdl.destroy();
+        renderer.render(this->map);
+        std::cout << "Rendering" << std::endl;
+    }
 }

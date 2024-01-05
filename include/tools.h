@@ -5,6 +5,8 @@
 #ifndef PROJECTISO_TOOLS_H
 #define PROJECTISO_TOOLS_H
 
+#include <SDL.h>
+
 #include "../extlib/random/random.hpp"
 
 #include "types.h"
@@ -19,6 +21,13 @@ namespace Tools {
     double dst(int x1, int y1, int x2, int y2);
     template<typename T>
     double dst(mVec2<T> p1, mVec2<T> p2);
+    SDL_Rect getSDLRectFromSize(int x, int y, int w, int h);
+    SDL_Rect getSDLRectFromSize(mVec2<int> origin, int w, int h);
+
+    SDL_Rect getSDLRectFromCoord(int x1, int y1, int x2, int y2);
+    SDL_Rect getSDLRectFromCoord(mVec2<int> origin, int x2, int y2);
+    SDL_Rect getSDLRectFromCoord(int x1, int y1, mVec2<int> target);
+    SDL_Rect getSDLRectFromCoord(mVec2<int> origin, mVec2<int> target);
 }
 
 #include "tools.tcc"
