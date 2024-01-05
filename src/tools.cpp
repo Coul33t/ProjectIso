@@ -30,6 +30,11 @@ namespace Tools {
         return 0;
     }
 
+    void scaleRect(SDL_Rect& rect_to_scale, const float scale_factor) {
+        rect_to_scale.w *= 2;
+        rect_to_scale.h *= 2;
+    }
+
     SDL_Rect getSDLRectFromSize(int x, int y, int w, int h) {
         SDL_Rect rect;
         rect.x = x;
