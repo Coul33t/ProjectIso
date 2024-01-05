@@ -21,12 +21,19 @@ public:
     void destroy();
 
     SDL_Surface* getScreenSurface();
-    void drawSurface(SDL_Surface* to_draw, SDL_Rect source_rect, SDL_Rect target_rect);
+    SDL_Renderer* getRenderer();
+
+    void drawSurface(SDL_Surface* to_draw, SDL_Rect& source_rect, SDL_Rect& target_rect);
+    void drawTexture(SDL_Texture* texture, SDL_Rect& source_rect, SDL_Rect& target_rect);
+
+    void SDLClearRenderer();
+    void SDLRenderPresent();
+
+    void update();
 
     void drawDEBUGSquares();
     void drawDEBUGGrid();
 
-    void update();
 
 private:
     SDL_Window* window;

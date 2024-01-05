@@ -54,16 +54,18 @@ public:
 
     void draw_map(Map& map);
 
-    SDL_Surface* loadImage(std::string path);
+    SDL_Texture* loadImage(const std::string& path);
 
     void render(Map& map);
+
+    mVec2<int> translate2DIntoIso(mVec3<int>& pos, mVec2<int>& offset);
 
     mVec2<uint> size;
     float scale_factor;
     std::map<std::string, SDL_Rect> surfaces;
     TileSetInfo tileset_info;
     KSDL ksdl;
-    SDL_Surface* tileset;
+    SDL_Texture* tileset;
 };
 
 
