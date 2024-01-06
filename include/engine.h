@@ -6,6 +6,7 @@
 #define PROJECTISO_ENGINE_H
 
 #include <SDL.h>
+#include <json.hpp>
 
 #include "map.h"
 #include "renderer.h"
@@ -15,6 +16,9 @@ class Engine {
 public:
     Engine();
     ~Engine();
+
+    void loadFromJSON(const std::string& path);
+    void saveMapToJSON(const std::string& filename);
 
     void init();
     void run();
