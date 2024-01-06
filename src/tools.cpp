@@ -88,5 +88,29 @@ namespace Tools {
         rect.h = target.y;
         return rect;
     }
+
+    Sprite& findSpriteFromPos(mVec2<int> pos, std::vector<Sprite>& sprite_lst) {
+        for (auto& sprite: sprite_lst) {
+            if (sprite.pos.x == pos.x && sprite.pos.y == pos.y) {
+                return sprite;
+            }
+        }
+    }
+
+    Sprite& findSpriteFromPos(int x, int y, std::vector<Sprite>& sprite_lst) {
+        for (auto& sprite: sprite_lst) {
+            if (sprite.pos.x == x && sprite.pos.y == y) {
+                return sprite;
+            }
+        }
+    }
+
+    Sprite& findSpriteByName(const std::string& name, std::vector<Sprite>& sprite_lst) {
+        for (auto& sprite: sprite_lst) {
+            if (sprite.name == name) {
+                return sprite;
+            }
+        }
+    }
 }
 

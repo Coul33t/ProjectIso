@@ -20,6 +20,7 @@ void Renderer::init() {
 }
 
 void Renderer::loadTileset() {
+    std::string spritesheet_name = "iso_sprite_sheet.png";
     tileset = loadImage("../res/3232iso/iso_sprite_sheet.png");
     
     int tile_w = Constants::TILE_W;
@@ -37,13 +38,31 @@ void Renderer::loadTileset() {
     tileset_info.nb_tiles.x = tileset_info.size.w / tile_w;
     tileset_info.nb_tiles.y = tileset_info.size.h / tile_h;
 
-    surfaces["grassfull"]       = Tools::getSDLRectFromSize(5*tile_w, 6*tile_h, tile_w, tile_h);
-    surfaces["dirtgrassfull"]   = Tools::getSDLRectFromSize(4*tile_w, 6*tile_h, tile_w, tile_h);
-    surfaces["dirtfull"]        = Tools::getSDLRectFromSize(3*tile_w, 6*tile_h, tile_w, tile_h);
-    surfaces["stonefull"]       = Tools::getSDLRectFromSize(5*tile_w, 5*tile_h, tile_w, tile_h);
-    surfaces["waterfull"]       = Tools::getSDLRectFromSize(1*tile_w, 0*tile_h, tile_w, tile_h);
+    for (int i = 0; i < tileset_info.size.h / tileset_info.tile_size.h; i++) {
+        for (int j = 0; j < tileset_info.size.w / tileset_info.tile_size.w; j++) {
+            Sprite new_sprite;
+            new_sprite.idx = i*(tileset_info.size.h / tileset_info.tile_size.h) + j;
+            new_sprite.pos = mVec2<int>{j, i}; // i = y, j = x
+            new_sprite.rect = SDL_Rect{i*tileset_info.tile_size.h, 
+                                       j*tileset_info.tile_size.w,
+                                       tileset_info.tile_size.w,
+                                       tileset_info.tile_size.h};
+            new_sprite.name = "";
+            new_sprite.spritesheet_name = spritesheet_name;
+            this->sprites.emplace_back(new_sprite);
+        }
+    }
 
     scale_factor = 2.0;
+}
+
+void Renderer::assignNameToSprites() {
+    // WARNING: x = 5, y = 6 -> (6, 5)
+    Tools::findSpriteFromPos(6, 5, this->sprites).name = "grassfull";
+    Tools::findSpriteFromPos(6, 4, this->sprites).name = "dirtgrassfull";
+    Tools::findSpriteFromPos(6, 3, this->sprites).name = "dirtfull";
+    Tools::findSpriteFromPos(5, 5, this->sprites).name = "stonefull";
+    Tools::findSpriteFromPos(0, 1, this->sprites).name = "waterfull";
 }
 
 SDL_Texture* Renderer::loadImage(const std::string& path) {
@@ -54,14 +73,14 @@ SDL_Texture* Renderer::loadImage(const std::string& path) {
     //Load image at specified path
     SDL_Surface* loaded_surface = IMG_Load(path.c_str());
     if(loaded_surface == NULL) {
-        std::cout << "Unable to load image %s! SDL Error: " << path.c_str() << " | " << SDL_GetError() << std::endl;
+        std::cout << "Unable to load image " << path.c_str() << ". SDL Error: " << SDL_GetError() << std::endl;
     }
 
     else {
         //Convert surface to screen format
         new_texture = SDL_CreateTextureFromSurface(ksdl.getRenderer(), loaded_surface);
         if(new_texture == NULL) {
-            std::cout <<"Unable to create texture from " << path.c_str() << "! SDL Error: " << SDL_GetError();
+            std::cout <<"Unable to create texture from " << path.c_str() << ". SDL Error: " << SDL_GetError();
         }
 
         //Get rid of old loaded surface
@@ -72,13 +91,7 @@ SDL_Texture* Renderer::loadImage(const std::string& path) {
 }
 
 SDL_Rect Renderer::getSurfaceCoordFromName(Tile& tile) {
-    if (this->surfaces.find(tile.texture_name) != this->surfaces.end())
-        return this->surfaces[tile.texture_name];
-
-    else {
-        std::cout << "[WARNING: texture \"" << tile.texture_name << "\" not in map.]" << std::endl;
-        return (*this->surfaces.begin()).second;
-    }
+    return Tools::findSpriteByName(tile.texture_name, this->sprites).rect;
 }
 
 mVec2<int> Renderer::translate2DIntoIso(mVec3<int>& pos, mVec2<int>& offset) {
@@ -109,13 +122,6 @@ void Renderer::draw_map(Map& map) {
     for (Tile& tile: map.tiles) {
         surface_coord = getSurfaceCoordFromName(tile);
         pos = translate2DIntoIso(tile.pos, offset);
-        /*// screen offset + actual position - left offset
-        pos.x =   offset.x + (tileset_info.offsets.x * scale_factor) * tile.pos.x
-                - (scale_factor * tileset_info.offsets.x * tile.pos.y);
-        // screen offset + actual position + top offset
-        pos.y =   offset.y + ((scale_factor * tileset_info.offsets.y) - tileset_info.offsets.y) * tile.pos.y
-                - (tile.pos.z * tileset_info.offsets.y)
-                + ((scale_factor * tileset_info.offsets.y - tileset_info.offsets.y) * tile.pos.x);*/
 
         /*if (tile.fill_under && map.adjacent_diff_is_bigger_than(tile, 2)) {
             mVec2<int> fill_pos = pos;

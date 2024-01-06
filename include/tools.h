@@ -10,6 +10,7 @@
 #include "../extlib/random/random.hpp"
 
 #include "types.h"
+#include "sprite.h"
 
 namespace Random {
     using EffoRandom = effolkronium::random_static;
@@ -31,6 +32,10 @@ namespace Tools {
     SDL_Rect getSDLRectFromCoord(mVec2<int> origin, int x2, int y2);
     SDL_Rect getSDLRectFromCoord(int x1, int y1, mVec2<int> target);
     SDL_Rect getSDLRectFromCoord(mVec2<int> origin, mVec2<int> target);
+
+    Sprite& findSpriteFromPos(mVec2<int> pos, std::vector<Sprite>& sprite_lst);
+    Sprite& findSpriteFromPos(int x, int y, std::vector<Sprite>& sprite_lst);
+    Sprite& findSpriteByName(const std::string& name, std::vector<Sprite>& sprite_lst);
 }
 
 #include "tools.tcc"

@@ -15,6 +15,7 @@
 
 #include "map.h"
 #include "ksdl.h"
+#include "sprite.h"
 #include "tools.h"
 #include "constants.h"
 
@@ -50,6 +51,7 @@ public:
 
     void init();
     void loadTileset();
+    void assignNameToSprites();
     SDL_Rect getSurfaceCoordFromName(Tile& tile);
 
     void draw_map(Map& map);
@@ -62,7 +64,7 @@ public:
 
     mVec2<uint> size;
     float scale_factor;
-    std::map<std::string, SDL_Rect> surfaces;
+    std::vector<Sprite> sprites;
     TileSetInfo tileset_info;
     KSDL ksdl;
     SDL_Texture* tileset;
