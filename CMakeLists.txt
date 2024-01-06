@@ -23,6 +23,7 @@ INCLUDE_DIRECTORIES(
         ${PROJECT_SOURCE_DIR}/src
 
         ${CMAKE_SOURCE_DIR}/extlib/random
+        ${CMAKE_SOURCE_DIR}/extlib/json
 )
 
 FILE(GLOB all_SRCS
