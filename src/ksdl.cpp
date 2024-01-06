@@ -111,8 +111,8 @@ void KSDL::SDLRenderPresent() {
 void KSDL::update() {
     
     int frame_start = SDL_GetTicks();
-    drawDEBUGSquares();
-    drawDEBUGGrid();
+    //drawDEBUGSquares();
+    //drawDEBUGGrid();
     
     int frame_time = SDL_GetTicks() - frame_start;
 

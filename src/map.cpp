@@ -16,10 +16,6 @@ Tile Map::get_tile_at(uint x, uint y) {
     return tiles[Tools::coordinates2dto1d(x, y, size.w)];
 }
 
-void load_from_file(std::string file_path) {
-
-}
-
 void Map::make_test_map() {
     size.w = 10;
     size.h = 10;
@@ -36,7 +32,7 @@ void Map::make_test_map() {
             }
 
             else {
-                int z = Random::get_int(-2, 0);
+                int z = Random::get_int(-1, 0);
                 if(z >= 0) {
                     tiles.emplace_back(Tile("grassfull", x, y, z));
                 }
