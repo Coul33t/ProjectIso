@@ -21,7 +21,7 @@ void Renderer::init() {
 
 void Renderer::loadTileset() {
     std::string spritesheet_name = "iso_sprite_sheet.png";
-    tileset = loadImage("../res/3232iso/iso_sprite_sheet.png");
+    tileset = loadImage("../res/tiles/3232iso/iso_sprite_sheet.png");
     
     int tile_w = Constants::TILE_W;
     int tile_h = Constants::TILE_H;
