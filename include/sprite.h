@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include <SDL.h>
+#include "include_SDL.h"
 
 #include "types.h"
 

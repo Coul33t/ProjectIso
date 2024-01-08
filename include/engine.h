@@ -5,7 +5,7 @@
 #ifndef PROJECTISO_ENGINE_H
 #define PROJECTISO_ENGINE_H
 
-#include <SDL.h>
+#include <include_SDL.h>
 #include <json.hpp>
 
 #include "map.h"

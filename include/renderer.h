@@ -10,8 +10,7 @@
 #include <map>
 #include <iostream>
 
-#include <SDL.h>
-#include <SDL_image.h>
+#include "include_SDL.h"
 
 #include "map.h"
 #include "ksdl.h"

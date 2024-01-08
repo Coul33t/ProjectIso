@@ -8,8 +8,7 @@
 #include <iostream>
 #include <string>
 
-#include <SDL.h>
-#include <SDL_image.h>
+#include "include_SDL.h"
 
 #include "constants.h"
 

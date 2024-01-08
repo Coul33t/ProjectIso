@@ -5,7 +5,6 @@ set(CMAKE_C_STANDARD 17)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
-
 # SDL2
 IF (WIN32)
         SET(SDL2_DIR "${PROJECT_SOURCE_DIR}/extlib/SDL/SDL2/cmake") 
@@ -14,7 +13,11 @@ IF (WIN32)
         FIND_PACKAGE(SDL2_Image REQUIRED)
 ENDIF (WIN32)
 
-# TODO: Linux
+IF (UNIX)
+        # For Unix, you might need to do as follow: https://stackoverflow.com/a/67678616
+        FIND_PACKAGE(SDL2 REQUIRED)
+        FIND_PACKAGE(SDL2_image REQUIRED)
+ENDIF (UNIX)
 
 
 # Project code
@@ -35,4 +38,10 @@ FILE(GLOB all_SRCS
 
 
 ADD_EXECUTABLE(projectiso main.cpp ${all_SRCS})
+IF (WIN32)
 TARGET_LINK_LIBRARIES(projectiso SDL2::SDL2main SDL2::SDL2 SDL2_image::SDL2_image)
+ENDIF (WIN32)
+
+IF (UNIX)
+TARGET_LINK_LIBRARIES(projectiso SDL2main SDL2 SDL2_image)
+ENDIF (UNIX)

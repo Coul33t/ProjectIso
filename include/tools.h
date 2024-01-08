@@ -5,7 +5,7 @@
 #ifndef PROJECTISO_TOOLS_H
 #define PROJECTISO_TOOLS_H
 
-#include <SDL.h>
+#include "include_SDL.h"
 
 #include "../extlib/random/random.hpp"
 
