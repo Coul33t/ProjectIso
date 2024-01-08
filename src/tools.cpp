@@ -18,7 +18,7 @@ namespace Random {
 
 namespace Tools {
     uint coordinates2dto1d(uint x, uint y, uint w) {
-        return (w * y + x);
+        return ((w * y) + x);
     }
 
     double dst(int x1, int y1, int x2, int y2) {
