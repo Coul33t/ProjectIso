@@ -5,6 +5,8 @@
 #ifndef PROJECTISO_ENGINE_H
 #define PROJECTISO_ENGINE_H
 
+#include <fstream>
+
 #include <include_SDL.h>
 #include <json.hpp>
 
@@ -12,13 +14,15 @@
 #include "renderer.h"
 #include "ksdl.h"
 
+using json = nlohmann::json;
+
 class Engine {
 public:
     Engine();
     ~Engine();
 
     void loadFromJSON(const std::string& path);
-    void saveMapToJSON(const std::string& filename);
+    void saveMapToJSON(const std::string& filename="default_name");
 
     void init();
     void run();
