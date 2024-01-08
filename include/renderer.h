@@ -48,10 +48,13 @@ public:
     Renderer();
     ~Renderer();
 
+    std::vector<Sprite>& getSprites();
+
     void init();
     void loadTileset();
     void assignNameToSprites();
     SDL_Rect getSurfaceCoordFromName(Tile& tile);
+    int getTextureIdxFromName(const std::string& name);
 
     void draw_map(Map& map);
 
