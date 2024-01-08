@@ -56,11 +56,16 @@ public:
     Map();
     ~Map();
 
-    Tile get_tile_at(uint x, uint y);
+    mVec2<uint>& getSize();
+    std::vector<Tile>& getTiles();
 
-    void make_test_map();
-    bool adjacent_diff_is_bigger_than(Tile& tile, int max_level);
+    Tile& getTileAt(uint x, uint y);
 
+    void makeTestMap();
+    void generateCuteMap();
+    bool adjacentZDiffIsBiggerThan(Tile& tile, int max_level);
+
+private:
     mVec2<uint> size;
     std::vector<Tile> tiles;
 };
