@@ -60,6 +60,7 @@ public:
     Tile get_tile_at(uint x, uint y);
 
     void load_from_file(std::string file_path);
+    void save_map(std::string file_path);
 
     void make_test_map();
     bool adjacent_diff_is_bigger_than(Tile& tile, int max_level);

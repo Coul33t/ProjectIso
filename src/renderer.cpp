@@ -23,11 +23,11 @@ void Renderer::load_textures() {
     tileset_info.tile_size.h = 32;
     tileset_info.offsets.x = 32 / 2;
     tileset_info.offsets.y = 32 / 2;
-    textures["grassfull"] = LoadTexture("../res/3232iso/grassfull.png");
-    textures["dirtgrassfull"] = LoadTexture("../res/3232iso/dirtgrassfull.png");
-    textures["dirtfull"] = LoadTexture("../res/3232iso/dirtfull.png");
-    textures["stonefull"] = LoadTexture("../res/3232iso/stonefull.png");
-    textures["waterfull"] = LoadTexture("../res/3232iso/waterfull.png");
+    textures["grassfull"] = LoadTexture("../res/tiles/3232iso/grassfull.png");
+    textures["dirtgrassfull"] = LoadTexture("../res/tiles/3232iso/dirtgrassfull.png");
+    textures["dirtfull"] = LoadTexture("../res/tiles/3232iso/dirtfull.png");
+    textures["stonefull"] = LoadTexture("../res/tiles/3232iso/stonefull.png");
+    textures["waterfull"] = LoadTexture("../res/tiles/3232iso/waterfull.png");
 
     scale_factor = 2.0;
 }

@@ -16,7 +16,11 @@ Tile Map::get_tile_at(uint x, uint y) {
     return tiles[Tools::coordinates2dto1d(x, y, size.w)];
 }
 
-void load_from_file(std::string file_path) {
+void Map::load_from_file(std::string file_path) {
+
+}
+
+void Map::save_map(std::string file_path) {
 
 }
 
