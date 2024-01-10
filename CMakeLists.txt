@@ -8,9 +8,11 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 # SDL2
 IF (WIN32)
         SET(SDL2_DIR "${PROJECT_SOURCE_DIR}/extlib/SDL/SDL2/cmake") 
-        SET(SDL2_Image_DIR "${PROJECT_SOURCE_DIR}/extlib/SDL/SDL2_image/cmake") 
+        SET(SDL2_Image_DIR "${PROJECT_SOURCE_DIR}/extlib/SDL/SDL2_image/cmake")
+        SET(SDL2_ttf_DIR "${PROJECT_SOURCE_DIR}/extlib/SDL/SDL2_ttf/cmake") 
         FIND_PACKAGE(SDL2 REQUIRED) 
         FIND_PACKAGE(SDL2_Image REQUIRED)
+        FIND_PACKAGE(SDL2_ttf REQUIRED)
 ENDIF (WIN32)
 
 IF (UNIX)
@@ -38,10 +40,11 @@ FILE(GLOB all_SRCS
 
 
 ADD_EXECUTABLE(projectiso main.cpp ${all_SRCS})
+
 IF (WIN32)
-TARGET_LINK_LIBRARIES(projectiso SDL2::SDL2main SDL2::SDL2 SDL2_image::SDL2_image)
+        TARGET_LINK_LIBRARIES(projectiso SDL2::SDL2main SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf)
 ENDIF (WIN32)
 
 IF (UNIX)
-TARGET_LINK_LIBRARIES(projectiso SDL2main SDL2 SDL2_image)
+        TARGET_LINK_LIBRARIES(projectiso SDL2main SDL2 SDL2_image)
 ENDIF (UNIX)

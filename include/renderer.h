@@ -64,6 +64,8 @@ public:
 
     mVec2<int> translate2DIntoIso(mVec3<int>& pos, mVec2<int>& offset);
 
+    void renderText(const std::string& msg, const mVec2<int>& pos, const SDL_Color& colour);
+
     mVec2<uint> size;
     float scale_factor;
     std::vector<Sprite> sprites;

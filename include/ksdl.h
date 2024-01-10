@@ -12,11 +12,14 @@
 
 #include "constants.h"
 
+#include "types.h"
+
  class KSDL {
 public:
     KSDL();
     ~KSDL();
     bool init(int width, int height, std::string name="NO NAME");
+    bool loadTTF();
     void destroy();
 
     SDL_Surface* getScreenSurface();
@@ -24,6 +27,8 @@ public:
 
     void drawSurface(SDL_Surface* to_draw, SDL_Rect& source_rect, SDL_Rect& target_rect);
     void drawTexture(SDL_Texture* texture, SDL_Rect& source_rect, SDL_Rect& target_rect);
+
+    void renderText(const std::string& text, const mVec2<int>& pos, const SDL_Color& colour);
 
     void SDLClearRenderer();
     void SDLRenderPresent();
@@ -38,6 +43,7 @@ private:
     SDL_Window* window;
     SDL_Surface* screen_surface;
     SDL_Renderer* renderer;
+    TTF_Font* font;
 };
 
 #endif // PROJECTISO_KSDL_H

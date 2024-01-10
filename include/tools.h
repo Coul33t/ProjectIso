@@ -12,6 +12,11 @@
 #include "types.h"
 #include "sprite.h"
 
+#define FULL_LOCATION "[" << __FILE__ << " | " << __FUNCTION__ << " | l." << __LINE__ << "]"
+#define FILE_NAME "[" << __FILE__ << "]"
+#define FUNCTION_NAME "[" << __FUNCTION__ << "]"
+#define LINE "l." << __LINE__
+
 namespace Random {
     using EffoRandom = effolkronium::random_static;
     int get_int(int lower, int higher, int seed=7);

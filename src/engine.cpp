@@ -12,6 +12,21 @@ Engine::~Engine() {
 
 }
 
+void Engine::loadFromText(const std::string& filename, const std::string& path) {
+     std::ifstream input_file(path + filename + ".txt");
+
+     if (input_file.is_open()) {
+        std::string line;
+        while(getline(input_file, line)){ //read data from file object and put it into string.
+            std::cout << line << std::endl; //print the data of the string
+        }
+     }
+
+     else {
+        std::cerr << FULL_LOCATION << "ERROR: " << path << filename << " can't be opened." << std::endl; 
+     }
+}
+
 void Engine::loadFromJSON(const std::string& path) {
 
 }
@@ -57,9 +72,13 @@ void Engine::init() {
 
 void Engine::run() {
 
+    std::cout << "test" << std::endl;
+
     map.generateCuteMap();
     renderer.loadTileset();
     renderer.assignNameToSprites();
+
+    this->loadFromText("../res/maps/", "test_map_text");
 
     this->saveMapToJSON();
 
@@ -72,7 +91,7 @@ void Engine::run() {
                 quit = true; 
             } 
         }
-
+        renderer.renderText("Test", mVec2<int>{10, 10}, {255, 255, 255});
         renderer.render(this->map);
     }
 }

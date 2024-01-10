@@ -21,6 +21,7 @@ public:
     Engine();
     ~Engine();
 
+    void loadFromText(const std::string& filename, const std::string& path);
     void loadFromJSON(const std::string& path);
     void saveMapToJSON(const std::string& filename="default_name");
 

@@ -7,6 +7,7 @@
 KSDL::KSDL() {
     this->window = nullptr;
     this->screen_surface = nullptr;
+    this->font = nullptr;
 }
 
 KSDL::~KSDL() {
@@ -19,29 +20,50 @@ bool KSDL::init(int width, int height, std::string name) {
         return false;
     }
 
-    //Create window
+    // Create window
     this->window = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
-    if(this->window == NULL) {
+    if(this->window == nullptr) {
         std::cout << "Window could not be created. SDL_Error: " << SDL_GetError() << std::endl;
         return false;
     }
 
         
     this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED);
-    if (this->renderer == NULL) {
+    if (this->renderer == nullptr) {
         std::cout << "Renderer could not be created. SDL_Error: " << SDL_GetError() << std::endl;
         return false;
     }
 
     // Load PNG
-    int imgFlags = IMG_INIT_PNG;
-    if(!(IMG_Init(imgFlags) & imgFlags)) {
+    int img_flags = IMG_INIT_PNG;
+    if(!(IMG_Init(img_flags) & img_flags)) {
         std::cout << "SDL_image could not initialize. SDL_image Error: " << IMG_GetError() << std::endl;
+        return false;
+    }
+
+    // Initialize SDL_ttf
+    if(TTF_Init() == -1) {
+        std::cout << "SDL_ttf could not initialize. SDL_ttf Error: " << TTF_GetError() << std::endl;
+        return false;
+    }
+
+    if (!loadTTF()) {
         return false;
     }
 
     this->screen_surface = SDL_GetWindowSurface(this->window);
     
+    return true;
+}
+
+bool KSDL::loadTTF() {
+    this->font = TTF_OpenFont("../res/fonts/OldePixel.ttf", 28);
+    
+    if(this->font == nullptr) {
+        std::cout << "Failed to load font. SDL_ttf Error: " << TTF_GetError() << std::endl;
+        return false;
+    }
+
     return true;
 }
 
@@ -59,6 +81,27 @@ void KSDL::drawSurface(SDL_Surface* to_draw, SDL_Rect& source_rect, SDL_Rect& ta
 
 void KSDL::drawTexture(SDL_Texture* texture, SDL_Rect& source_rect, SDL_Rect& target_rect) {
     SDL_RenderCopy(this->renderer, texture, &source_rect, &target_rect);
+}
+
+void KSDL::renderText(const std::string& text, const mVec2<int>& pos, const SDL_Color& colour) {
+    SDL_Surface* text_surface = TTF_RenderText_Solid(this->font, text.c_str(), colour);
+
+    if(text_surface == NULL) {
+        std::cout << "Unable to render text surface! SDL_ttf Error: " << TTF_GetError() << std::endl;
+        return;
+    }
+
+    else {
+        SDL_Texture* text = SDL_CreateTextureFromSurface(renderer, text_surface);
+        
+        SDL_Rect pos_rect;
+        pos_rect.x = pos.x;
+        pos_rect.y = pos.y;
+        pos_rect.w = text_surface->w;
+        pos_rect.h = text_surface->h;
+
+        SDL_RenderCopy(this->renderer, text, nullptr, &pos_rect);
+    }
 }
 
 void KSDL::drawDEBUGSquares() {

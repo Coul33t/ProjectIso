@@ -152,6 +152,10 @@ void Renderer::draw_map(Map& map) {
     }
 }
 
+void Renderer::renderText(const std::string& msg, const mVec2<int>& pos, const SDL_Colour& colour) {
+    this->ksdl.renderText(msg, pos, colour);
+}
+
 void Renderer::render(Map& map) {
     this->ksdl.SDLClearRenderer();
     this->draw_map(map);
