@@ -17,6 +17,7 @@ ENDIF (WIN32)
 
 IF (UNIX)
         # For Unix, you might need to do as follow: https://stackoverflow.com/a/67678616
+        list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
         FIND_PACKAGE(SDL2 REQUIRED)
         FIND_PACKAGE(SDL2_image REQUIRED)
 ENDIF (UNIX)
@@ -46,5 +47,5 @@ IF (WIN32)
 ENDIF (WIN32)
 
 IF (UNIX)
-        TARGET_LINK_LIBRARIES(projectiso SDL2main SDL2 SDL2_image)
+        TARGET_LINK_LIBRARIES(projectiso SDL2 SDL2main SDL2_image SDL2_ttf)
 ENDIF (UNIX)
