@@ -13,8 +13,8 @@ template<typename T>
 struct mVec2
 {
     union {
-        struct { T x, y;};
-        struct { T w, h;};
+        struct { T x, y; };
+        struct { T w, h; };
     };
 };
 
@@ -22,8 +22,8 @@ template<typename T>
 struct mVec3
 {
     union {
-        struct { T x, y, z;};
-        struct { T w, h, d;};
+        struct { T x, y, z; };
+        struct { T w, h, d; };
     };
 };
 
