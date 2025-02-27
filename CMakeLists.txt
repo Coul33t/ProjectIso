@@ -17,6 +17,7 @@ ENDIF (WIN32)
 
 IF (UNIX)
         # For Unix, you might need to do as follow: https://stackoverflow.com/a/67678616
+        list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
         FIND_PACKAGE(SDL2 REQUIRED)
         FIND_PACKAGE(SDL2_image REQUIRED)
 ENDIF (UNIX)
@@ -34,11 +35,14 @@ INCLUDE_DIRECTORIES(
 FILE(GLOB all_SRCS
         "${PROJECT_SOURCE_DIR}/include/*.h"
         "${PROJECT_SOURCE_DIR}/include/*.hpp"
+        "${PROJECT_SOURCE_DIR}/include/characters/*.h"
+
         "${PROJECT_SOURCE_DIR}/src/*.cpp"
         "${PROJECT_SOURCE_DIR}/src/*.c"
+        "${PROJECT_SOURCE_DIR}/src/characters/*.c"
 )
 
-
+add_compile_options(-Wall -Wextra -Wpedantic)
 ADD_EXECUTABLE(projectiso main.cpp ${all_SRCS})
 
 IF (WIN32)
@@ -46,5 +50,5 @@ IF (WIN32)
 ENDIF (WIN32)
 
 IF (UNIX)
-        TARGET_LINK_LIBRARIES(projectiso SDL2main SDL2 SDL2_image)
+        TARGET_LINK_LIBRARIES(projectiso SDL2 SDL2main SDL2_image SDL2_ttf)
 ENDIF (UNIX)

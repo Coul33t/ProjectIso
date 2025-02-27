@@ -6,12 +6,18 @@
 
 namespace Random {
     int get_int(int min, int max, int seed) {
-        if (min == max)
+        if (seed != -1) {
+            EffoRandom::seed(seed);
+        }
+
+        if (min == max) {
             return min;
+        }    
 
-        if (min > max)
+        if (min > max) {
             std::swap(min, max);
-
+        }
+            
         return EffoRandom::get(min, max);
     }
 }
@@ -29,8 +35,8 @@ namespace Tools {
     }
 
     void scaleRect(SDL_Rect& rect_to_scale, const float scale_factor) {
-        rect_to_scale.w *= 2;
-        rect_to_scale.h *= 2;
+        rect_to_scale.w *= scale_factor;
+        rect_to_scale.h *= scale_factor;
     }
 
     SDL_Rect getSDLRectFromSize(int x, int y, int w, int h) {
@@ -93,6 +99,9 @@ namespace Tools {
                 return sprite;
             }
         }
+
+        std::cerr << "ERROR: sprite not found, returning first sprite of the list." << std::endl;
+        return(sprite_lst[0]);
     }
 
     StaticSprite& findSpriteFromPos(int x, int y, std::vector<StaticSprite>& sprite_lst) {
@@ -101,6 +110,9 @@ namespace Tools {
                 return sprite;
             }
         }
+
+        std::cerr << "ERROR: sprite not found, returning first sprite of the list." << std::endl;
+        return(sprite_lst[0]);
     }
 
     StaticSprite& findSpriteByName(const std::string& name, std::vector<StaticSprite>& sprite_lst) {
@@ -109,6 +121,9 @@ namespace Tools {
                 return sprite;
             }
         }
+
+        std::cerr << "ERROR: sprite not found, returning first sprite of the list." << std::endl;
+        return(sprite_lst[0]);
     }
 }
 
