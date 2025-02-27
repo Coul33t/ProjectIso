@@ -56,7 +56,7 @@ public:
     SDL_Rect getSurfaceCoordFromName(Tile& tile);
     int getTextureIdxFromName(const std::string& name);
 
-    void draw_map(Map& map);
+    void drawMap(Map& map);
 
     SDL_Texture* loadImage(const std::string& path);
 

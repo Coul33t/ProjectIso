@@ -124,7 +124,7 @@ mVec2<int> Renderer::translate2DIntoIso(mVec3<int>& pos, mVec2<int>& offset) {
     return iso_pos;
 }
 
-void Renderer::draw_map(Map& map) {
+void Renderer::drawMap(Map& map) {
     mVec2<int> offset;
     mVec2<int> pos;
     SDL_Rect surface_coord;
@@ -158,7 +158,7 @@ void Renderer::renderText(const std::string& msg, const mVec2<int>& pos, const S
 
 void Renderer::render(Map& map) {
     this->ksdl.SDLClearRenderer();
-    this->draw_map(map);
+    this->drawMap(map);
     this->ksdl.update();
     this->ksdl.SDLRenderPresent();
 }
