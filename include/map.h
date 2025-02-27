@@ -13,6 +13,7 @@
 #include "types.h"
 #include "tools.h"
 
+
 struct Tile {
     std::string texture_name;
     mVec3<int> pos; // x, y, z
@@ -60,6 +61,10 @@ public:
     std::vector<Tile>& getTiles();
 
     Tile& getTileAt(uint x, uint y);
+
+    void rotateClockwise();
+    void rotateCounterClockwise();
+    void reorderTileByCoordinates();
 
     void makeTestMap();
     void generateCuteMap();

@@ -24,6 +24,30 @@ Tile& Map::getTileAt(uint x, uint y) {
     return tiles[Tools::coordinates2dto1d(x, y, size.h)];
 }
 
+void Map::rotateClockwise() {
+    for (auto& tile: this->tiles) {
+        int new_x = tile.pos.y;
+        int new_y = this->size.w - tile.pos.x;
+        tile.pos.x = new_x;
+        tile.pos.y = new_y;
+    }
+
+    //this->reorderTileByCoordinates();
+}
+
+void Map::rotateCounterClockwise() {
+    // Ehehehehh
+    this->rotateClockwise();
+    this->rotateClockwise();
+    this->rotateClockwise();
+}
+
+void Map::reorderTileByCoordinates() {
+    std::sort(this->tiles.begin(), this->tiles.end(), 
+              [this](Tile &t1, Tile &t2){return (t1.pos.x * this->size.w) + t1.pos.y > 
+                                                (t2.pos.x * this->size.w) + t2.pos.y;});
+}
+
 void Map::makeTestMap() {
     this->size.w = 10;
     this->size.h = 10;
