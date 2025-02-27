@@ -38,9 +38,9 @@ namespace Tools {
     SDL_Rect getSDLRectFromCoord(int x1, int y1, mVec2<int> target);
     SDL_Rect getSDLRectFromCoord(mVec2<int> origin, mVec2<int> target);
 
-    Sprite& findSpriteFromPos(mVec2<int> pos, std::vector<Sprite>& sprite_lst);
-    Sprite& findSpriteFromPos(int x, int y, std::vector<Sprite>& sprite_lst);
-    Sprite& findSpriteByName(const std::string& name, std::vector<Sprite>& sprite_lst);
+    StaticSprite& findSpriteFromPos(mVec2<int> pos, std::vector<StaticSprite>& sprite_lst);
+    StaticSprite& findSpriteFromPos(int x, int y, std::vector<StaticSprite>& sprite_lst);
+    StaticSprite& findSpriteByName(const std::string& name, std::vector<StaticSprite>& sprite_lst);
 }
 
 #include "tools.tcc"

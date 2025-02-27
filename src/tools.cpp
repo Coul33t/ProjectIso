@@ -87,7 +87,7 @@ namespace Tools {
         return rect;
     }
 
-    Sprite& findSpriteFromPos(mVec2<int> pos, std::vector<Sprite>& sprite_lst) {
+    StaticSprite& findSpriteFromPos(mVec2<int> pos, std::vector<StaticSprite>& sprite_lst) {
         for (auto& sprite: sprite_lst) {
             if (sprite.pos.x == pos.x && sprite.pos.y == pos.y) {
                 return sprite;
@@ -95,7 +95,7 @@ namespace Tools {
         }
     }
 
-    Sprite& findSpriteFromPos(int x, int y, std::vector<Sprite>& sprite_lst) {
+    StaticSprite& findSpriteFromPos(int x, int y, std::vector<StaticSprite>& sprite_lst) {
         for (auto& sprite: sprite_lst) {
             if (sprite.pos.x == x && sprite.pos.y == y) {
                 return sprite;
@@ -103,7 +103,7 @@ namespace Tools {
         }
     }
 
-    Sprite& findSpriteByName(const std::string& name, std::vector<Sprite>& sprite_lst) {
+    StaticSprite& findSpriteByName(const std::string& name, std::vector<StaticSprite>& sprite_lst) {
         for (auto& sprite: sprite_lst) {
             if (sprite.name == name) {
                 return sprite;
