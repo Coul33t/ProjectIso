@@ -14,7 +14,7 @@ Renderer::~Renderer() {
     ksdl.destroy();
 }
 
-std::vector<Sprite>& Renderer::getSprites() {
+std::vector<StaticSprite>& Renderer::getSprites() {
     return this->sprites;
 }
 
@@ -25,7 +25,7 @@ void Renderer::init() {
 
 void Renderer::loadTileset() {
     std::string spritesheet_name = "iso_sprite_sheet.png";
-    tileset = loadImage("../res/tiles/3232iso/iso_sprite_sheet.png");
+    this->tileset = loadImage("../res/tiles/3232iso/iso_sprite_sheet.png");
     
     int tile_w = Constants::TILE_W;
     int tile_h = Constants::TILE_H;
@@ -44,16 +44,7 @@ void Renderer::loadTileset() {
 
     for (int i = 0; i < tileset_info.size.h / tileset_info.tile_size.h; i++) {
         for (int j = 0; j < tileset_info.size.w / tileset_info.tile_size.w; j++) {
-            Sprite new_sprite;
-            
-            new_sprite.idx = (i*tileset_info.nb_tiles.x) + j;
-            new_sprite.pos = mVec2<int>{j, i}; // i = y, j = x
-            new_sprite.rect = SDL_Rect{i*tileset_info.tile_size.h, 
-                                       j*tileset_info.tile_size.w,
-                                       tileset_info.tile_size.w,
-                                       tileset_info.tile_size.h};
-            new_sprite.name = "";
-            new_sprite.spritesheet_name = spritesheet_name;
+            StaticSprite new_sprite(i, j, tileset_info, "", spritesheet_name);
             this->sprites.emplace_back(new_sprite);
         }
     }
@@ -124,7 +115,7 @@ mVec2<int> Renderer::translate2DIntoIso(mVec3<int>& pos, mVec2<int>& offset) {
     return iso_pos;
 }
 
-void Renderer::draw_map(Map& map) {
+void Renderer::drawMap(Map& map) {
     mVec2<int> offset;
     mVec2<int> pos;
     SDL_Rect surface_coord;
@@ -136,6 +127,7 @@ void Renderer::draw_map(Map& map) {
     int tile_h = Constants::TILE_H;
 
     for (Tile& tile: map.getTiles()) {
+        // TODO: Split into static and animated sprite
         surface_coord = getSurfaceCoordFromName(tile);
         pos = translate2DIntoIso(tile.pos, offset);
 
@@ -148,6 +140,7 @@ void Renderer::draw_map(Map& map) {
 
         SDL_Rect tex_rect = Tools::getSDLRectFromSize(pos, tile_w, tile_h);
         Tools::scaleRect(tex_rect, scale_factor);
+        // TODO: seek the right tileset (probably in Sprite)
         ksdl.drawTexture(this->tileset, surface_coord, tex_rect);
     }
 }
@@ -158,7 +151,7 @@ void Renderer::renderText(const std::string& msg, const mVec2<int>& pos, const S
 
 void Renderer::render(Map& map) {
     this->ksdl.SDLClearRenderer();
-    this->draw_map(map);
+    this->drawMap(map);
     this->ksdl.update();
     this->ksdl.SDLRenderPresent();
 }
