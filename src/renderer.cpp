@@ -18,9 +18,8 @@ std::vector<StaticSprite>& Renderer::getSprites() {
     return this->sprites;
 }
 
-void Renderer::init() {
-    // TODO: do something with return value
-    ksdl.init(size.w, size.h, "Test name");
+bool Renderer::init() {
+    return ksdl.init(size.w, size.h, "Test name");
 }
 
 void Renderer::loadTileset() {

@@ -66,8 +66,12 @@ void Engine::saveMapToJSON(const std::string& filename) {
     
 }
 
-void Engine::init() {
-    renderer.init();
+bool Engine::init() {
+    if (!renderer.init()) {
+        return false;
+    }
+
+    return true;
 }
 
 void Engine::run() {
@@ -78,7 +82,7 @@ void Engine::run() {
     renderer.loadTileset();
     renderer.assignNameToSprites();
 
-    this->loadFromText("../res/maps/", "test_map_text");
+    //this->loadFromText("../res/maps/", "test_map_text");
 
     this->saveMapToJSON();
 
@@ -91,7 +95,7 @@ void Engine::run() {
                 quit = true; 
             } 
         }
-        renderer.renderText("Test", mVec2<int>{10, 10}, {255, 255, 255});
+        renderer.renderText("Test", mVec2<int>{10, 10}, {255, 255, 255, 255});
         renderer.render(this->map);
     }
 }

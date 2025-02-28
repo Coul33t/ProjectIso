@@ -25,7 +25,7 @@ public:
 
     std::vector<StaticSprite>& getSprites();
 
-    void init();
+    bool init();
     void loadTileset();
     void assignNameToSprites();
     SDL_Rect getSurfaceCoordFromName(Tile& tile);

@@ -8,7 +8,11 @@
 
 int main(int argv, char** args) {
     Engine engine;
-    engine.init();
+    
+    if (!engine.init()) {
+        return 1;
+    }
+
     engine.run();
     return 0;
 }

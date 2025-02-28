@@ -7,8 +7,13 @@
 
 #include <cstdint>
 
+// Lazy ass (TODO: proper sized variables)
 typedef unsigned int uint;
 
+// I know anonymous structs are UB, but there's no way to do this properly 
+// without making the struct way bigger in memory
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
 template<typename T>
 struct mVec2
 {
@@ -26,6 +31,7 @@ struct mVec3
         struct { T w, h, d; };
     };
 };
+#pragma GCC diagnostic pop
 
 struct TileSetInfo {
     mVec2<int> tile_size;

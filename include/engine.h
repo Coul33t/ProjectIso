@@ -25,7 +25,7 @@ public:
     void loadFromJSON(const std::string& path);
     void saveMapToJSON(const std::string& filename="default_name");
 
-    void init();
+    bool init();
     void run();
 
     float scale_factor;
