@@ -2,7 +2,7 @@
 // Created by couland-q on 24/01/2024.
 //
 
-#include "../include/entity.h"
+#include "../../include/entities/entity.h"
 
 Entity::Entity() {
 
