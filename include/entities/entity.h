@@ -15,12 +15,14 @@
 class Entity {
 public:
     Entity();
-    Entity(const std::string& spritesheet_path);
+    Entity(SPRITE_TYPE sprite_type, const std::string& spritesheet_path);
     ~Entity();
 
-private:
+    void setStaticSprite(const std::string& path_to_sprite);
+
     mVec2<int> pos;
-    AnimatedSprite sprite;
+    AnimatedSprite anim_sprite;
+    StaticSprite static_sprite;
 };
 
 #endif //PROJECTISO_ENTITY_H

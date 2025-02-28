@@ -8,10 +8,20 @@ Entity::Entity() {
 
 }
 
-Entity::Entity(const std::string& spritesheet_path) {
-    
+Entity::Entity(SPRITE_TYPE sprite_type, const std::string& spritesheet_path) {
+    if (sprite_type == SPRITE_TYPE::STATIC) {
+        
+    }
+
+    else {
+
+    }
 }
 
 Entity::~Entity() {
 
+}
+
+void Entity::setStaticSprite(const std::string& path_to_sprite) {
+    
 }
