@@ -22,6 +22,8 @@ public:
     bool loadTTF();
     void destroy();
 
+    SDL_Texture* loadImage(const std::string& path);
+
     SDL_Surface* getScreenSurface();
     SDL_Renderer* getRenderer();
 
