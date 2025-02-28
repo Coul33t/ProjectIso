@@ -5,20 +5,32 @@
 #ifndef PROJECTISO_SPRITE_H
 #define PROJECTISO_SPRITE_H
 
+#include <iostream>
 #include <string>
 
 #include "include_SDL.h"
 
 #include "types.h"
 
+enum SPRITE_TYPE {
+    STATIC,
+    ANIMATED
+};
+
 /**
  * Basic sprite, with just the name and the spritesheet name. Shouldn't be instanciated (kinda useless as is).
 */
 struct BasicSprite {
+    // Type of the sprite 
+    SPRITE_TYPE type;
     // Name of the sprite
     std::string name;
     // Name of the spritesheet from where the sprite is taken
     std::string spritesheet_name;
+
+    BasicSprite() {
+        std::cout << "WARNING: you should never instanciate a BasicSprite object (use StaticSprite or AnimatedSprite)." << std::endl;
+    }
 };
 
 /**
@@ -40,6 +52,7 @@ struct StaticSprite: BasicSprite {
         rect.y = -1;
         rect.w = -1;
         rect.h = -1;
+        type = SPRITE_TYPE::STATIC;
     }
 
     StaticSprite(int i, int j, const TileSetInfo& tileset_info, 
@@ -63,7 +76,7 @@ struct AnimatedSprite: BasicSprite {
     int current_sprite_idx;
     
     AnimatedSprite() {
-
+        type = SPRITE_TYPE::ANIMATED;
     }
 
     
