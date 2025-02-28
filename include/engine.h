@@ -10,6 +10,7 @@
 #include <include_SDL.h>
 #include <json.hpp>
 
+#include "entities/entity.h"
 #include "map.h"
 #include "renderer.h"
 #include "ksdl.h"
@@ -31,6 +32,8 @@ public:
     float scale_factor;
     Renderer renderer;
     Map map;
+    std::vector<Entity> entities;
+    Entity cursor;
 };
 
 #endif //PROJECTISO_ENGINE_H

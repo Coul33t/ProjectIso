@@ -71,6 +71,9 @@ bool Engine::init() {
         return false;
     }
 
+    // Init cursor (tmp)
+    cursor.setStaticSprite("../res/sprites/cursor.png");
+
     return true;
 }
 
@@ -96,6 +99,7 @@ void Engine::run() {
             } 
         }
         renderer.renderText("Test", mVec2<int>{10, 10}, {255, 255, 255, 255});
-        renderer.render(this->map);
+        renderer.render(this->map, this->entities, this->cursor);
+        
     }
 }
