@@ -24,7 +24,7 @@ bool Renderer::init() {
 
 void Renderer::loadTileset() {
     std::string spritesheet_name = "iso_sprite_sheet.png";
-    this->tileset = loadImage("../res/tiles/3232iso/iso_sprite_sheet.png");
+    this->tileset = ksdl.loadImage("../res/tiles/3232iso/iso_sprite_sheet.png");
     
     int tile_w = Constants::TILE_W;
     int tile_h = Constants::TILE_H;
@@ -59,31 +59,6 @@ void Renderer::assignNameToSprites() {
     Tools::findSpriteFromPos(2, 0, this->sprites).name = "sandfull";
     Tools::findSpriteFromPos(5, 5, this->sprites).name = "stonefull";
     Tools::findSpriteFromPos(0, 1, this->sprites).name = "waterfull";
-}
-
-SDL_Texture* Renderer::loadImage(const std::string& path) {
-    //The final optimized image
-    SDL_Surface* optimized_surface = NULL;
-    SDL_Texture* new_texture = NULL;
-
-    //Load image at specified path
-    SDL_Surface* loaded_surface = IMG_Load(path.c_str());
-    if(loaded_surface == NULL) {
-        std::cout << "Unable to load image " << path.c_str() << ". SDL Error: " << SDL_GetError() << std::endl;
-    }
-
-    else {
-        //Convert surface to screen format
-        new_texture = SDL_CreateTextureFromSurface(ksdl.getRenderer(), loaded_surface);
-        if(new_texture == NULL) {
-            std::cout <<"Unable to create texture from " << path.c_str() << ". SDL Error: " << SDL_GetError();
-        }
-
-        //Get rid of old loaded surface
-        SDL_FreeSurface(loaded_surface);
-    }
-
-    return new_texture;
 }
 
 SDL_Rect Renderer::getSurfaceCoordFromName(Tile& tile) {
@@ -144,13 +119,25 @@ void Renderer::drawMap(Map& map) {
     }
 }
 
+void Renderer::drawEntities(std::vector<Entity>& entities) {
+    for (auto& ent: entities) {
+
+    }
+}
+
+void Renderer::drawCursor(Entity& cursor) {
+
+}
+
 void Renderer::renderText(const std::string& msg, const mVec2<int>& pos, const SDL_Colour& colour) {
     this->ksdl.renderText(msg, pos, colour);
 }
 
-void Renderer::render(Map& map) {
+void Renderer::render(Map& map, std::vector<Entity>& entities, Entity& cursor) {
     this->ksdl.SDLClearRenderer();
     this->drawMap(map);
+    this->drawCursor(cursor);
+    this->drawEntities(entities);
     this->ksdl.update();
     this->ksdl.SDLRenderPresent();
 }

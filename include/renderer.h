@@ -13,6 +13,7 @@
 #include "include_SDL.h"
 
 #include "map.h"
+#include "entities/entity.h"
 #include "ksdl.h"
 #include "sprite.h"
 #include "tools.h"
@@ -32,10 +33,10 @@ public:
     int getTextureIdxFromName(const std::string& name);
 
     void drawMap(Map& map);
+    void drawEntities(std::vector<Entity>& entities);
+    void drawCursor(Entity& cursor);
 
-    SDL_Texture* loadImage(const std::string& path);
-
-    void render(Map& map);
+    void render(Map& map, std::vector<Entity>& entities, Entity& cursor);
 
     mVec2<int> translate2DIntoIso(mVec3<int>& pos, mVec2<int>& offset);
 
