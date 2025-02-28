@@ -35,11 +35,11 @@ INCLUDE_DIRECTORIES(
 FILE(GLOB all_SRCS
         "${PROJECT_SOURCE_DIR}/include/*.h"
         "${PROJECT_SOURCE_DIR}/include/*.hpp"
-        "${PROJECT_SOURCE_DIR}/include/characters/*.h"
+        "${PROJECT_SOURCE_DIR}/include/entities/*.h"
 
         "${PROJECT_SOURCE_DIR}/src/*.cpp"
         "${PROJECT_SOURCE_DIR}/src/*.c"
-        "${PROJECT_SOURCE_DIR}/src/characters/*.c"
+        "${PROJECT_SOURCE_DIR}/src/entities/*.c"
 )
 
 add_compile_options(-Wall -Wextra -Wpedantic)
