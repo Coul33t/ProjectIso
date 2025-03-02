@@ -28,7 +28,7 @@ public:
     SDL_Renderer* getRenderer();
 
     void drawSurface(SDL_Surface* to_draw, SDL_Rect& source_rect, SDL_Rect& target_rect);
-    void drawTexture(SDL_Texture* texture, SDL_Rect& source_rect, SDL_Rect& target_rect);
+    void drawTexture(SDL_Texture* texture, SDL_FRect& source_rect, SDL_FRect& target_rect);
 
     void renderText(const std::string& text, const mVec2<int>& pos, const SDL_Color& colour);
 

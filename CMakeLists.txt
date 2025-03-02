@@ -7,12 +7,12 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 # SDL2
 IF (WIN32)
-        SET(SDL2_DIR "${PROJECT_SOURCE_DIR}/extlib/SDL/SDL2/cmake") 
-        SET(SDL2_Image_DIR "${PROJECT_SOURCE_DIR}/extlib/SDL/SDL2_image/cmake")
-        SET(SDL2_ttf_DIR "${PROJECT_SOURCE_DIR}/extlib/SDL/SDL2_ttf/cmake") 
-        FIND_PACKAGE(SDL2 REQUIRED) 
-        FIND_PACKAGE(SDL2_Image REQUIRED)
-        FIND_PACKAGE(SDL2_ttf REQUIRED)
+        SET(SDL3_DIR "${PROJECT_SOURCE_DIR}/extlib/SDL/SDL3/cmake") 
+        SET(SDL3_Image_DIR "${PROJECT_SOURCE_DIR}/extlib/SDL/SDL3_image/cmake")
+        SET(SDL3_ttf_DIR "${PROJECT_SOURCE_DIR}/extlib/SDL/SDL3_ttf/cmake") 
+        FIND_PACKAGE(SDL3 REQUIRED) 
+        FIND_PACKAGE(SDL3_Image REQUIRED)
+        FIND_PACKAGE(SDL3_ttf REQUIRED)
 ENDIF (WIN32)
 
 IF (UNIX)
@@ -43,11 +43,11 @@ FILE(GLOB all_SRCS
         "${PROJECT_SOURCE_DIR}/src/entities/*.c"
 )
 
-add_compile_options(-Wall -Wextra -Wpedantic)
+#add_compile_options(-Wall -Wextra -Wpedantic)
 ADD_EXECUTABLE(projectiso main.cpp ${all_SRCS})
 
 IF (WIN32)
-        TARGET_LINK_LIBRARIES(projectiso SDL2::SDL2main SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf)
+        TARGET_LINK_LIBRARIES(projectiso SDL3::SDL3 SDL3_image::SDL3_image SDL3_ttf::SDL3_ttf)
 ENDIF (WIN32)
 
 IF (UNIX)

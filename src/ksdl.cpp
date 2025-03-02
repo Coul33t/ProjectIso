@@ -33,7 +33,7 @@ SDL_Texture* KSDL::loadImage(const std::string& path) {
         }
 
         //Get rid of old loaded surface
-        SDL_FreeSurface(loaded_surface);
+        SDL_DestroySurface(loaded_surface);
     }
 
     return new_texture;
@@ -46,29 +46,29 @@ bool KSDL::init(int width, int height, std::string name) {
     }
 
     // Create window
-    this->window = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+    this->window = SDL_CreateWindow(name.c_str(), width, height, 0);
     if(this->window == nullptr) {
         std::cout << "Window could not be created. SDL_Error: " << SDL_GetError() << std::endl;
         return false;
     }
 
         
-    this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED);
+    this->renderer = SDL_CreateRenderer(this->window, NULL);
     if (this->renderer == nullptr) {
         std::cout << "Renderer could not be created. SDL_Error: " << SDL_GetError() << std::endl;
         return false;
     }
 
     // Load PNG
-    int img_flags = IMG_INIT_PNG;
+    /*int img_flags = IMG_INIT_PNG;
     if(!(IMG_Init(img_flags) & img_flags)) {
         std::cout << "SDL_image could not initialize. SDL_image Error: " << IMG_GetError() << std::endl;
         return false;
-    }
+    }*/
 
     // Initialize SDL_ttf
     if(TTF_Init() == -1) {
-        std::cout << "SDL_ttf could not initialize. SDL_ttf Error: " << TTF_GetError() << std::endl;
+        std::cout << "SDL_ttf could not initialize. SDL_ttf Error: " << SDL_GetError() << std::endl;
         return false;
     }
 
@@ -85,7 +85,7 @@ bool KSDL::loadTTF() {
     this->font = TTF_OpenFont("../res/fonts/OldePixel.ttf", 28);
     
     if(this->font == nullptr) {
-        std::cout << "Failed to load font. SDL_ttf Error: " << TTF_GetError() << std::endl;
+        std::cout << "Failed to load font. SDL_ttf Error: " << SDL_GetError() << std::endl;
         return false;
     }
 
@@ -104,28 +104,28 @@ void KSDL::drawSurface(SDL_Surface* to_draw, SDL_Rect& source_rect, SDL_Rect& ta
     SDL_BlitSurface(to_draw, &source_rect, this->screen_surface, &target_rect);
 }
 
-void KSDL::drawTexture(SDL_Texture* texture, SDL_Rect& source_rect, SDL_Rect& target_rect) {
-    SDL_RenderCopy(this->renderer, texture, &source_rect, &target_rect);
+void KSDL::drawTexture(SDL_Texture* texture, SDL_FRect& source_rect, SDL_FRect& target_rect) {
+    SDL_RenderTexture(this->renderer, texture, &source_rect, &target_rect);
 }
 
 void KSDL::renderText(const std::string& text, const mVec2<int>& pos, const SDL_Color& colour) {
-    SDL_Surface* text_surface = TTF_RenderText_Solid(this->font, text.c_str(), colour);
+    SDL_Surface* text_surface = TTF_RenderText_Solid(this->font, text.c_str(), 0, colour);
 
     if(text_surface == NULL) {
-        std::cout << "Unable to render text surface! SDL_ttf Error: " << TTF_GetError() << std::endl;
+        std::cout << "Unable to render text surface! SDL_ttf Error: " << SDL_GetError() << std::endl;
         return;
     }
 
     else {
         SDL_Texture* text = SDL_CreateTextureFromSurface(renderer, text_surface);
         
-        SDL_Rect pos_rect;
+        SDL_FRect pos_rect;
         pos_rect.x = pos.x;
         pos_rect.y = pos.y;
         pos_rect.w = text_surface->w;
         pos_rect.h = text_surface->h;
 
-        SDL_RenderCopy(this->renderer, text, nullptr, &pos_rect);
+        SDL_RenderTexture(this->renderer, text, nullptr, &pos_rect);
     }
 }
 
@@ -134,19 +134,19 @@ void KSDL::drawDEBUGSquares() {
     SDL_GetRenderDrawColor(this->renderer, &r, &g, &b, &a);
 
     SDL_SetRenderDrawColor(this->renderer, 0xFF, 0x00, 0x00, 0xFF);
-    SDL_Rect rect{32, 32, 32, 32};
+    SDL_FRect rect{32, 32, 32, 32};
     SDL_RenderFillRect(this->renderer, &rect);
 
     SDL_SetRenderDrawColor(this->renderer, 0x00, 0xFF, 0x00, 0xFF);
-    SDL_Rect rect2{this->screen_surface->w - 64, this->screen_surface->h - 64, 32, 32};
+    SDL_FRect rect2{this->screen_surface->w - 64, this->screen_surface->h - 64, 32, 32};
     SDL_RenderFillRect(this->renderer, &rect2);
 
     SDL_SetRenderDrawColor(this->renderer, 0x00, 0x00, 0xFF, 0xFF);
-    SDL_Rect rect3{this->screen_surface->w - 64, 32, 32, 32};
+    SDL_FRect rect3{this->screen_surface->w - 64, 32, 32, 32};
     SDL_RenderFillRect(this->renderer, &rect3);
 
     SDL_SetRenderDrawColor(this->renderer, 0xFF, 0xFF, 0x00, 0xFF);
-    SDL_Rect rect4{32, this->screen_surface->h - 64, 32, 32};
+    SDL_FRect rect4{32, this->screen_surface->h - 64, 32, 32};
     SDL_RenderFillRect(this->renderer, &rect4);
 
     SDL_SetRenderDrawColor(this->renderer, r, g, b, a);
@@ -158,11 +158,11 @@ void KSDL::drawDEBUGGrid() {
     SDL_SetRenderDrawColor(this->renderer, 0x55, 0x55, 0x55, 0xFF);
 
     for (int i = 32; i < this->screen_surface->w; i += 32) {
-        SDL_RenderDrawLine(this->renderer, i, 0, i, this->screen_surface->h);
+        SDL_RenderLine(this->renderer, i, 0, i, this->screen_surface->h);
     }
 
     for (int i = 32; i < this->screen_surface->h; i += 32) {
-        SDL_RenderDrawLine(this->renderer, 0, i, this->screen_surface->w, i);
+        SDL_RenderLine(this->renderer, 0, i, this->screen_surface->w, i);
     }
 
     SDL_SetRenderDrawColor(this->renderer, r, g, b, a);

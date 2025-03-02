@@ -3,7 +3,7 @@
     #include <SDL2/SDL_image.h>
     #include <SDL2/SDL_ttf.h>
 #elif defined(_WIN32) || defined(WIN32) || defined(_WIN64)
-    #include <SDL.h>
-    #include <SDL_image.h>
-    #include <SDL_ttf.h>
+    #include <SDL3/SDL.h>
+    #include <SDL3_image/SDL_image.h>
+    #include <SDL3_ttf/SDL_ttf.h>
 #endif
