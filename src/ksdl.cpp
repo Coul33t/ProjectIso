@@ -108,6 +108,13 @@ void KSDL::drawTexture(SDL_Texture* texture, SDL_FRect& source_rect, SDL_FRect& 
     SDL_RenderTexture(this->renderer, texture, &source_rect, &target_rect);
 }
 
+void KSDL::drawTexture(SDL_Texture* texture, SDL_Rect& source_rect, SDL_Rect& target_rect) {
+    SDL_FRect source_frect, target_frect;
+    SDL_RectToFRect(&source_rect, &source_frect);
+    SDL_RectToFRect(&target_rect, &target_frect);
+    SDL_RenderTexture(this->renderer, texture, &source_frect, &target_frect);
+}
+
 void KSDL::renderText(const std::string& text, const mVec2<int>& pos, const SDL_Color& colour) {
     SDL_Surface* text_surface = TTF_RenderText_Solid(this->font, text.c_str(), 0, colour);
 

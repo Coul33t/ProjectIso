@@ -33,10 +33,10 @@ void Renderer::loadTileset() {
     tileset_info.offsets.x = tile_w / 2;
     tileset_info.offsets.y = tile_h / 2;
 
-    SDL_Point tileset_size;
-    SDL_QueryTexture(tileset, NULL, NULL, &tileset_size.x, &tileset_size.y); 
-    tileset_info.size.w = tileset_size.x;
-    tileset_info.size.h = tileset_size.y;
+    float tex_size_x, tex_size_y;
+    SDL_GetTextureSize(tileset, &tex_size_x, &tex_size_y); 
+    tileset_info.size.w = tex_size_x;
+    tileset_info.size.h = tex_size_y;
 
     tileset_info.nb_tiles.x = tileset_info.size.w / tile_w;
     tileset_info.nb_tiles.y = tileset_info.size.h / tile_h;
@@ -129,7 +129,7 @@ void Renderer::drawCursor(Entity& cursor) {
 
 }
 
-void Renderer::renderText(const std::string& msg, const mVec2<int>& pos, const SDL_Colour& colour) {
+void Renderer::renderText(const std::string& msg, const mVec2<int>& pos, const SDL_Color& colour) {
     this->ksdl.renderText(msg, pos, colour);
 }
 
