@@ -133,6 +133,9 @@ void KSDL::renderText(const std::string& text, const mVec2<int>& pos, const SDL_
         pos_rect.h = text_surface->h;
 
         SDL_RenderTexture(this->renderer, text, nullptr, &pos_rect);
+        
+        SDL_DestroyTexture(text);
+        SDL_DestroySurface(text_surface);
     }
 }
 
