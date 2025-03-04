@@ -11,6 +11,7 @@
 #include "include_SDL.h"
 
 #include "types.h"
+#include "macros.h"
 
 enum SPRITE_TYPE {
     STATIC,
@@ -29,7 +30,7 @@ struct BasicSprite {
     std::string spritesheet_name;
 
     BasicSprite() {
-        std::cout << "WARNING: you should never instanciate a BasicSprite object (use StaticSprite or AnimatedSprite)." << std::endl;
+        std::cout << FULL_LOCATION << "WARNING: you should never instanciate a BasicSprite object (use StaticSprite or AnimatedSprite)." << std::endl;
     }
 };
 
