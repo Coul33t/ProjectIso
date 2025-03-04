@@ -17,8 +17,8 @@ void Engine::loadFromText(const std::string& filename, const std::string& path) 
 
      if (input_file.is_open()) {
         std::string line;
-        while(getline(input_file, line)){ //read data from file object and put it into string.
-            std::cout << line << std::endl; //print the data of the string
+        while(getline(input_file, line)) {  // read data from file object and put it into string.
+            std::cout << line << std::endl; // print the data of the string
         }
      }
 
@@ -98,8 +98,8 @@ void Engine::run() {
                 quit = true; 
             } 
         }
+
         renderer.renderText("Test", mVec2<int>{10, 10}, {255, 255, 255, 255});
         renderer.render(this->map, this->entities, this->cursor);
-        
     }
 }
