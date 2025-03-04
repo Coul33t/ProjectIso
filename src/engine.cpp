@@ -78,9 +78,6 @@ bool Engine::init() {
 }
 
 void Engine::run() {
-
-    std::cout << "test" << std::endl;
-
     map.generateCuteMap();
     renderer.loadTileset();
     renderer.assignNameToSprites();

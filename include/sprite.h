@@ -29,9 +29,7 @@ struct BasicSprite {
     // Name of the spritesheet from where the sprite is taken
     std::string spritesheet_name;
 
-    BasicSprite() {
-        std::cout << FULL_LOCATION << "WARNING: you should never instanciate a BasicSprite object (use StaticSprite or AnimatedSprite)." << std::endl;
-    }
+    BasicSprite() = default;
 };
 
 /**
