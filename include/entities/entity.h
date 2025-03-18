@@ -12,6 +12,11 @@
 #include "sprite.h"
 #include "tools.h"
 
+union EntitySprite {
+    StaticSprite static_sprite;
+    AnimatedSprite anim_sprite;
+};
+
 class Entity {
 public:
     Entity();
@@ -21,8 +26,7 @@ public:
     void setStaticSprite(const std::string& path_to_sprite);
 
     mVec2<int> pos;
-    AnimatedSprite anim_sprite;
-    StaticSprite static_sprite;
+    EntitySprite sprite;
 };
 
 #endif //PROJECTISO_ENTITY_H

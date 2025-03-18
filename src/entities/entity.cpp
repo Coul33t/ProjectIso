@@ -10,11 +10,11 @@ Entity::Entity() {
 
 Entity::Entity(SPRITE_TYPE sprite_type, const std::string& spritesheet_path) {
     if (sprite_type == SPRITE_TYPE::STATIC) {
-        
+        this->sprite = StaticSprite();
     }
 
     else {
-
+        this->sprite = AnimatedSprite();
     }
 }
 
