@@ -13,11 +13,14 @@
 #include "include_SDL.h"
 
 #include "map.h"
+#include "tileset.h"
 #include "entities/entity.h"
 #include "ksdl.h"
 #include "sprite.h"
 #include "tools.h"
 #include "constants.h"
+
+typedef std::vector<std::pair<std::string, Tileset>> TilesetVec;
 
 class Renderer {
 public:
@@ -32,6 +35,8 @@ public:
     SDL_Rect getSurfaceCoordFromName(Tile& tile);
     int getTextureIdxFromName(const std::string& name);
 
+    void addEntitySpritesheet(const std::string& name, const std::string& spritesheet_path);
+
     void drawMap(Map& map);
     void drawEntities(std::vector<Entity>& entities);
     void drawCursor(Entity& cursor);
@@ -45,9 +50,9 @@ public:
     mVec2<uint> size;
     float scale_factor;
     std::vector<StaticSprite> sprites;
-    TileSetInfo tileset_info;
+    Tileset map_tileset;
     KSDL ksdl;
-    SDL_Texture* tileset;
+    TilesetVec entities_tilesets;
 };
 
 

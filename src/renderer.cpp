@@ -24,27 +24,27 @@ bool Renderer::init() {
 
 void Renderer::loadTileset() {
     std::string spritesheet_name = "iso_sprite_sheet.png";
-    this->tileset = ksdl.loadImage("../res/tiles/3232iso/iso_sprite_sheet.png");
+    map_tileset.loadTexture("../res/tiles/3232iso/iso_sprite_sheet.png", ksdl);
     
     int tile_w = Constants::TILE_W;
     int tile_h = Constants::TILE_H;
-    tileset_info.tile_size.w = tile_w;
-    tileset_info.tile_size.h = tile_h;
-    tileset_info.offsets.x = tile_w / 2;
-    tileset_info.offsets.y = tile_h / 2;
+    map_tileset.info.tile_size.w = tile_w;
+    map_tileset.info.tile_size.h = tile_h;
+    map_tileset.info.offsets.x = tile_w / 2;
+    map_tileset.info.offsets.y = tile_h / 2;
 
     float tex_size_x, tex_size_y;
-    SDL_GetTextureSize(tileset, &tex_size_x, &tex_size_y); 
-    tileset_info.size.w = tex_size_x;
-    tileset_info.size.h = tex_size_y;
+    SDL_GetTextureSize(map_tileset.texture, &tex_size_x, &tex_size_y);
+    map_tileset.info.size.w = tex_size_x;
+    map_tileset.info.size.h = tex_size_y;
 
-    tileset_info.nb_tiles.x = tileset_info.size.w / tile_w;
-    tileset_info.nb_tiles.y = tileset_info.size.h / tile_h;
+    map_tileset.info.nb_tiles.x = map_tileset.info.size.w / tile_w;
+    map_tileset.info.nb_tiles.y = map_tileset.info.size.h / tile_h;
 
-    for (int i = 0; i < tileset_info.size.h / tileset_info.tile_size.h; i++) {
-        for (int j = 0; j < tileset_info.size.w / tileset_info.tile_size.w; j++) {
-            StaticSprite new_sprite(i, j, tileset_info, "", spritesheet_name);
-            this->sprites.emplace_back(new_sprite);
+    for (int i = 0; i < map_tileset.info.size.h / map_tileset.info.tile_size.h; i++) {
+        for (int j = 0; j < map_tileset.info.size.w / map_tileset.info.tile_size.w; j++) {
+            StaticSprite new_sprite(i, j, map_tileset.info, "", spritesheet_name);
+            sprites.emplace_back(new_sprite);
         }
     }
 
@@ -75,16 +75,22 @@ int Renderer::getTextureIdxFromName(const std::string& name) {
     return -1;
 }
 
+void Renderer::addEntitySpritesheet(const std::string& name, const std::string& spritesheet_path) {
+    Tileset tileset;
+    tileset.loadTexture(spritesheet_path, ksdl);
+    this->entities_tilesets.emplace_back(name, tileset);
+}
+
 mVec2<int> Renderer::translate2DIntoIso(mVec3<int>& pos, mVec2<int>& offset) {
     mVec2<int> iso_pos;  
 
     // First term: grid based
     // Second term: diamond shape
     // scale_factor: scaling
-    iso_pos.x = offset.x + (pos.x * (tileset_info.offsets.x * scale_factor)) - (scale_factor * tileset_info.offsets.x * pos.y);
-    iso_pos.y = offset.y + (pos.y * (scale_factor * tileset_info.offsets.y) / 2) + (pos.x * tileset_info.offsets.y);
+    iso_pos.x = offset.x + (pos.x * (this->map_tileset.info.offsets.x * scale_factor)) - (scale_factor * this->map_tileset.info.offsets.x * pos.y);
+    iso_pos.y = offset.y + (pos.y * (scale_factor * this->map_tileset.info.offsets.y) / 2) + (pos.x * this->map_tileset.info.offsets.y);
     // Z offset (if any)
-    iso_pos.y = iso_pos.y - (pos.z * tileset_info.offsets.y);
+    iso_pos.y = iso_pos.y - (pos.z * this->map_tileset.info.offsets.y);
 
     return iso_pos;
 }
@@ -115,7 +121,7 @@ void Renderer::drawMap(Map& map) {
         SDL_Rect tex_rect = Tools::getSDLRectFromSize(pos, tile_w, tile_h);
         Tools::scaleRect(tex_rect, scale_factor);
         // TODO: seek the right tileset (probably in Sprite)
-        ksdl.drawTexture(this->tileset, surface_coord, tex_rect);
+        ksdl.drawTexture(this->map_tileset.texture, surface_coord, tex_rect);
     }
 }
 

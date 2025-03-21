@@ -26,6 +26,10 @@ public:
     void loadFromJSON(const std::string& path);
     void saveMapToJSON(const std::string& filename="default_name");
 
+    void loadEntity(const std::string& name, const std::string& path_to_spritesheet, SPRITE_TYPE sprite_type);
+
+    void dummyLoadEntities();
+
     bool init();
     void run();
 

@@ -12,7 +12,8 @@
 #include "sprite.h"
 #include "tools.h"
 
-union EntitySprite {
+struct EntitySprite {
+    SPRITE_TYPE type;
     StaticSprite static_sprite;
     AnimatedSprite anim_sprite;
 };
@@ -20,13 +21,16 @@ union EntitySprite {
 class Entity {
 public:
     Entity();
-    Entity(SPRITE_TYPE sprite_type, const std::string& spritesheet_path);
+    Entity(const std::string& name, SPRITE_TYPE sprite_type, const std::string& spritesheet_path);
     ~Entity();
 
     void setStaticSprite(const std::string& path_to_sprite);
+    // Dummy, TODO
+    void setDynamicSprite();
 
     mVec2<int> pos;
     EntitySprite sprite;
+    std::string name;
 };
 
 #endif //PROJECTISO_ENTITY_H

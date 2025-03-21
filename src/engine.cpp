@@ -66,15 +66,35 @@ void Engine::saveMapToJSON(const std::string& filename) {
     
 }
 
+void Engine::loadEntity(const std::string& name, const std::string& path_to_spritesheet, SPRITE_TYPE sprite_type) {
+    Entity ent;
+    ent.name = name;
+    ent.sprite.type = sprite_type;
+    if (sprite_type == SPRITE_TYPE::STATIC) {
+        ent.setStaticSprite(path_to_spritesheet);
+    }
+
+    else {
+        ent.setDynamicSprite();
+    }
+
+    renderer.addEntitySpritesheet(name, path_to_spritesheet);
+}
+
 bool Engine::init() {
     if (!renderer.init()) {
         return false;
     }
 
     // Init cursor (tmp)
+    cursor.name = "Cursor";
     cursor.setStaticSprite("../res/sprites/cursor.png");
 
     return true;
+}
+
+void Engine::dummyLoadEntities() {
+
 }
 
 void Engine::run() {
