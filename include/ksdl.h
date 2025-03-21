@@ -14,7 +14,7 @@
 
 #include "types.h"
 
- class KSDL {
+class KSDL {
 public:
     KSDL();
     ~KSDL();
